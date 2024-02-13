@@ -1,5 +1,7 @@
 package org.adaschool.api.controller.product;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.adaschool.api.exception.ProductNotFoundException;
 import org.adaschool.api.repository.product.Product;
 import org.adaschool.api.repository.product.ProductDto;
@@ -19,12 +21,15 @@ public class ProductsController {
 
     private final ProductsService productsService;
 
-    public ProductsController(@Autowired ProductsService productsService) {
+    @Autowired
+    public ProductsController(ProductsService productsService) {
         this.productsService = productsService;
     }
 
+    @Operation(summary = "Create new product")
+    @ApiResponse(responseCode = "201",description = "Product created")
     @PostMapping
-    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
+        public ResponseEntity<Product> createProduct(@RequestBody Product product) {
         Product createProduct = productsService.save(product);
         URI createdProductUri = URI.create("");
         return ResponseEntity.created(createdProductUri).body(createProduct);
