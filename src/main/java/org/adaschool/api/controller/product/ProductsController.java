@@ -1,7 +1,5 @@
 package org.adaschool.api.controller.product;
 
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.adaschool.api.exception.ProductNotFoundException;
 import org.adaschool.api.repository.product.Product;
 import org.adaschool.api.repository.product.ProductDto;
@@ -26,8 +24,6 @@ public class ProductsController {
         this.productsService = productsService;
     }
 
-    @Operation(summary = "Create new product")
-    @ApiResponse(responseCode = "201",description = "Product created")
     @PostMapping
         public ResponseEntity<Product> createProduct(@RequestBody Product product) {
         Product createProduct = productsService.save(product);
